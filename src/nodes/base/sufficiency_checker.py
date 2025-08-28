@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 from langchain_core.output_parsers import PydanticOutputParser
 
 from .base import BaseNode
-from ..models.conversation_state import TechnicalConversationState, ConversationStage, ResponseType
+from ...models.conversation_state import TechnicalConversationState, ConversationStage, ResponseType
 
 
 class SufficiencyLevel(str, Enum):

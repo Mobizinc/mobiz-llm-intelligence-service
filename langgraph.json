@@ -1,0 +1,25 @@
+{
+  "dependencies": [
+    ".",
+    "langchain-openai>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langgraph>=0.6.0",
+    "fastapi>=0.104.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.0.0",
+    "openai>=1.40.0",
+    "httpx>=0.25.0",
+    "aiohttp>=3.9.0",
+    "typing-extensions",
+    "orjson>=3.9.0",
+    "python-dotenv"
+  ],
+  "graphs": {
+    "conversation": "./src/core/graph_factory.py:create_conversation_graph",
+    "independent": "./src/core/graph_factory.py:create_independent_graph",
+    "development": "./src/core/graph_factory.py:create_development_graph",
+    "power_platform": "./src/core/graph_factory.py:create_power_platform_graph",
+    "minimal_test": "./src/core/graph_factory.py:create_minimal_test_graph"
+  },
+  "env": "./.env"
+}

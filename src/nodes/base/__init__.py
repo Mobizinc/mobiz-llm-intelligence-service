@@ -8,7 +8,7 @@ the conversation state and performs specific AI-driven tasks.
 Part of Epic 2: Agent Nodes Implementation
 """
 
-from .base import BaseNode
+from .base import BaseNode, NodeError, NodeTimeoutError, NodeValidationError, CircuitBreakerOpen
 from .intent_classifier import IntentClassifierNode
 from .information_extractor import InformationExtractorNode
 from .requirement_analyzer import RequirementAnalyzerNode
@@ -18,6 +18,10 @@ from .direct_answer import DirectAnswerNode
 
 __all__ = [
     'BaseNode',
+    'NodeError',
+    'NodeTimeoutError', 
+    'NodeValidationError',
+    'CircuitBreakerOpen',
     'IntentClassifierNode', 
     'InformationExtractorNode',
     'RequirementAnalyzerNode',

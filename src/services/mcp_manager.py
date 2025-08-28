@@ -142,8 +142,12 @@ class MCPManager:
                 self.config = {"global_settings": {}, "mcpServers": {}}
                 return
             
-            with open(config_path, 'r') as f:
-                self.config = json.load(f)
+            # Use asyncio.to_thread to make file reading non-blocking
+            def read_config():
+                with open(config_path, 'r') as f:
+                    return json.load(f)
+            
+            self.config = await asyncio.to_thread(read_config)
             
             # Apply environment overrides
             self._apply_environment_overrides()

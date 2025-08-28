@@ -16,8 +16,8 @@ from pydantic import BaseModel, Field
 from langchain_core.output_parsers import PydanticOutputParser
 
 from .base import BaseNode, NodeValidationError
-from ..models.conversation_state import TechnicalConversationState, ResponseType, ConversationStage
-from ..models.streaming import StreamTextChunk
+from ...models.conversation_state import TechnicalConversationState, ResponseType, ConversationStage
+from ...models.streaming import StreamTextChunk
 
 
 class SolutionComplexity(str, Enum):

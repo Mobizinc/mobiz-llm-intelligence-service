@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 from langchain_core.output_parsers import PydanticOutputParser
 
 from .base import BaseNode
-from ..models.conversation_state import TechnicalConversationState, DomainType
+from ...models.conversation_state import TechnicalConversationState, DomainType
 
 
 class ExtractedEntity(BaseModel):
