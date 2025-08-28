@@ -1,0 +1,25 @@
+# Independent LLM Intelligence Service Requirements
+# Core FastAPI and web framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+
+# LLM and AI
+openai>=1.40.0
+langchain-core>=0.3.0
+langgraph>=0.6.0
+
+# HTTP and async
+httpx>=0.25.0
+aiohttp>=3.9.0
+
+# Data processing
+pydantic-settings>=2.0.0
+python-dotenv
+
+# Utilities
+typing-extensions
+orjson>=3.9.0
+
+# Production server
+gunicorn>=21.0.0
