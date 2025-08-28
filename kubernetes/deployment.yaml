@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mobiz-llm-intelligence
+  labels:
+    app: mobiz-llm-intelligence
+    version: v1
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: mobiz-llm-intelligence
+  template:
+    metadata:
+      labels:
+        app: mobiz-llm-intelligence
+        version: v1
+    spec:
+      serviceAccountName: mobiz-llm-intelligence
+      containers:
+      - name: llm-service
+        image: mobizinc/llm-intelligence:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: llm-secrets
+              key: openai-api-key
+        - name: AZURE_OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: llm-secrets
+              key: azure-openai-api-key
+              optional: true
+        - name: AZURE_OPENAI_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              name: llm-secrets
+              key: azure-openai-endpoint
+              optional: true
+        - name: LOG_LEVEL
+          value: "INFO"
+        - name: ENVIRONMENT
+          value: "production"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: config
+          mountPath: /app/config
+          readOnly: true
+        - name: logs
+          mountPath: /app/logs
+      volumes:
+      - name: config
+        configMap:
+          name: llm-config
+      - name: logs
+        emptyDir: {}
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: "kubernetes.azure.com/scalesetpriority"
+        operator: "Equal"
+        value: "spot"
+        effect: "NoSchedule"

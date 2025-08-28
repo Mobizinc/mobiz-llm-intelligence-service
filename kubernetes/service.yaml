@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobiz-llm-intelligence
+  labels:
+    app: mobiz-llm-intelligence
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  selector:
+    app: mobiz-llm-intelligence
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mobiz-llm-intelligence
+  labels:
+    app: mobiz-llm-intelligence
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: llm-config
+  labels:
+    app: mobiz-llm-intelligence
+data:
+  mcp_servers.json: |
+    {
+      "power_platform_analyzer": {
+        "type": "http",
+        "url": "http://localhost:8000/mcp",
+        "tools": ["analyze_canvas_app", "detect_anomalies"],
+        "enabled": true
+      },
+      "shared_services_rag": {
+        "type": "http", 
+        "url": "http://rag-service:8080/mcp",
+        "tools": ["search_patterns", "get_knowledge"],
+        "enabled": true
+      }
+    }
+  domains.yaml: |
+    platforms:
+      power_platform:
+        name: "Power Platform"
+        description: "Microsoft Power Platform analysis"
+        entities:
+          - canvas_app
+          - flow
+          - dataverse_entity
+        capabilities:
+          - anomaly_detection
+          - performance_analysis
+          - remediation_generation
+      
+      servicenow:
+        name: "ServiceNow"
+        description: "ServiceNow platform analysis"
+        entities:
+          - incident
+          - change_request
+          - service_catalog
+        capabilities:
+          - anomaly_detection
+          - cross_platform_correlation
+      
+      salesforce:
+        name: "Salesforce"
+        description: "Salesforce CRM analysis"
+        entities:
+          - case
+          - opportunity
+          - approval
+        capabilities:
+          - anomaly_detection
+          - business_impact_analysis

@@ -1,0 +1,58 @@
+# FastAPI and ASGI server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.0.0
+
+# LangChain and LangGraph for AI orchestration
+langchain>=0.3.0
+langchain-openai>=0.3.0
+langchain-core>=0.3.0
+langgraph>=0.6.0
+
+# OpenAI GPT-5 and structured outputs
+openai>=1.40.0
+
+# Azure SDK for cloud integration
+azure-keyvault-secrets
+azure-identity
+azure-data-tables
+azure-monitor-opentelemetry
+
+# OpenTelemetry for monitoring
+opentelemetry-instrumentation-requests
+opentelemetry-instrumentation-logging
+opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-httpx
+opentelemetry-instrumentation-system-metrics
+
+# MCP Protocol Integration
+fastmcp>=2.0.0
+mcp>=0.1.0
+sse-starlette>=2.0.0
+
+# HTTP client and async support
+httpx>=0.25.0
+aiohttp>=3.9.0
+aiofiles>=23.0.0
+
+# Security and validation
+cryptography>=41.0.0
+slowapi>=0.1.9  # Rate limiting
+
+# Configuration and utilities
+python-dotenv
+PyYAML>=6.0.0
+typing-extensions
+orjson>=3.9.0  # Fast JSON serialization
+
+# Production server
+gunicorn>=21.0.0
+
+# Testing (development)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0  # For test client
+
+# Development tools
+tabulate>=0.9.0
